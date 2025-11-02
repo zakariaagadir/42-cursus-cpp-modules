@@ -1,24 +1,55 @@
 #include "ScalarConverter.hpp"
 
 
-ScalarConverter::ScalarConverter()
-{
+// ScalarConverter::ScalarConverter()
+// {
 
+// }
+
+// ScalarConverter::ScalarConverter(const ScalarConverter& other)
+// {
+
+// }
+
+// ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other)
+// {
+
+// }
+
+// ScalarConverter::~ScalarConverter()
+// {
+
+// }
+
+
+float strToFloat(const std::string &s)
+{
+    float f;
+    std::stringstream ss(s);
+    ss >> f;
+    if (ss.fail() || !ss.eof()) // check conversion success
+        throw std::invalid_argument("invalid float");
+    return f;
 }
 
-ScalarConverter::ScalarConverter(const ScalarConverter& other)
+double strToDouble(const std::string &s)
 {
-
+    double d;
+    std::stringstream ss(s);
+    ss >> d;
+    if (ss.fail() || !ss.eof())
+        throw std::invalid_argument("invalid double");
+    return d;
 }
 
-ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other)
+int strToInt(const std::string &s)
 {
-
-}
-
-ScalarConverter::~ScalarConverter()
-{
-
+    int i;
+    std::stringstream ss(s);
+    ss >> i;
+    if (ss.fail() || !ss.eof())
+        throw std::invalid_argument("invalid int");
+    return i;
 }
 
 leteral_type ScalarConverter::get_type(std::string& other)
@@ -82,7 +113,7 @@ void ScalarConverter::printConversions(char c, int i, float f, double d)
     std::cout << "double: " << d << "\n";
 }
 
-void ScalarConverter::convert(std::string &other)
+void ScalarConverter::convert(std::string other)
 {
     leteral_type type = get_type(other);
     float s_float;
@@ -92,40 +123,71 @@ void ScalarConverter::convert(std::string &other)
     switch (type)
     {
         case type_char :
-            s_float = std::stof(other);
-            s_int = static_cast<int>(s_float);
-            s_char = static_cast<char>(s_float);
-            s_double = static_cast<double>(s_float);
+
+            try {
+                s_float = strToFloat(other);
+                s_int = static_cast<int>(s_float);
+                s_char = other[0];
+                s_double = static_cast<double>(s_float);
+            } catch (std::exception &e) {
+                std::cout << "Error: " << e.what() << std::endl;
+                return;
+            }
             break;
         case type_int :
-            s_float = std::stof(other);
-            s_int = static_cast<int>(s_float);
-            s_char = static_cast<char>(s_float);
-            s_double = static_cast<double>(s_float);
+            try {
+                s_float = strToFloat(other);
+                s_int = static_cast<int>(s_float);
+                s_char = static_cast<char>(s_float);
+                s_double = static_cast<double>(s_float);
+            } catch (std::exception &e) {
+                std::cout << "Error: " << e.what() << std::endl;
+                return;
+            }
             break;
         case type_float :
-            s_float = std::stof(other);
-            s_int = static_cast<int>(s_float);
-            s_char = static_cast<char>(s_float);
-            s_double = static_cast<double>(s_float);
+            try {
+                s_float = strToFloat(other);
+                s_int = static_cast<int>(s_float);
+                s_char = static_cast<char>(s_float);
+                s_double = static_cast<double>(s_float);
+            } catch (std::exception &e) {
+                std::cout << "Error: " << e.what() << std::endl;
+                return;
+            }
             break;
         case type_double :
-            s_float = std::stof(other);
-            s_int = static_cast<int>(s_float);
-            s_char = static_cast<char>(s_float);
-            s_double = static_cast<double>(s_float);
+            try {
+                s_float = strToFloat(other);
+                s_int = static_cast<int>(s_float);
+                s_char = static_cast<char>(s_float);
+                s_double = static_cast<double>(s_float);
+            } catch (std::exception &e) {
+                std::cout << "Error: " << e.what() << std::endl;
+                return;
+            }
             break;
         case type_pseudo :
-            s_float = std::stof(other);
-            s_int = static_cast<int>(s_float);
-            s_char = static_cast<char>(s_float);
-            s_double = static_cast<double>(s_float);
+            try {
+                s_float = strToFloat(other);
+                s_int = static_cast<int>(s_float);
+                s_char = static_cast<char>(s_float);
+                s_double = static_cast<double>(s_float);
+            } catch (std::exception &e) {
+                std::cout << "Error: " << e.what() << std::endl;
+                return;
+            }
             break;
         case type_invalid :
-            s_float = std::stof(other);
-            s_int = static_cast<int>(s_float);
-            s_char = static_cast<char>(s_float);
-            s_double = static_cast<double>(s_float);
+            try {
+                s_float = strToFloat(other);
+                s_int = static_cast<int>(s_float);
+                s_char = static_cast<char>(s_float);
+                s_double = static_cast<double>(s_float);
+            } catch (std::exception &e) {
+                std::cout << "Error: " << e.what() << std::endl;
+                return;
+            }
             break;
         default :
             std::cout << "Unknown or invalid literal" << std::endl;

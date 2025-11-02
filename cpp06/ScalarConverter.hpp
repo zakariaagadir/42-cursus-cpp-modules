@@ -3,7 +3,9 @@
 
 #include <string>
 #include <iostream>
+#include <sstream>
 #include <cctype>
+#include <iomanip>
 
 enum leteral_type
 {
@@ -26,7 +28,7 @@ class ScalarConverter
         static leteral_type get_type(std::string& other);
         static void printConversions(char c, int i, float f, double d);
     public:
-        static void convert(std::string &other);
+        static void convert(std::string other);
 };
 
 #endif
