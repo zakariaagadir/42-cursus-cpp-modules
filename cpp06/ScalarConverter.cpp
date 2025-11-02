@@ -20,26 +20,20 @@
 // {
 
 // }
-
+double ScalarConverter::c_double = 0.0;
 
 float strToFloat(const std::string &s)
 {
     float f;
     std::stringstream ss(s);
     ss >> f;
-    if (ss.fail() || !ss.eof()) // check conversion success
-        throw std::invalid_argument("invalid float");
     return f;
 }
 
-double strToDouble(const std::string &s)
+void ScalarConverter::strToDouble(const std::string &s)
 {
-    double d;
     std::stringstream ss(s);
-    ss >> d;
-    if (ss.fail() || !ss.eof())
-        throw std::invalid_argument("invalid double");
-    return d;
+    ss >> (ScalarConverter::c_double);
 }
 
 int strToInt(const std::string &s)
@@ -60,7 +54,7 @@ leteral_type ScalarConverter::get_type(std::string& other)
         return (type_pseudo);
     if ((other.size() == 1) && isprint(other[0]) && !isdigit(other[0]))
         return(type_char);
-    int i = 0;
+    size_t i = 0;
     if (other[i] == '-' || other[i] == '+')
         i++;
     while(i < other.length())
@@ -78,20 +72,13 @@ leteral_type ScalarConverter::get_type(std::string& other)
         if (!isdigit(other[i]))
         {
             if(other[i] == '.' && !virgule)
-            {
                 virgule = true;
-            }
-            else if (other[i] == 'f' && i == (other.length() - 1))
-            {
+            else if (other[i] == 'f' && i == (other.length() - 1) && !f)
                 f = true;
-            }
             else
-            {
                 return type_invalid;
-            }
 
         }
-        
         i++;
     }
     if (virgule && f)
@@ -116,6 +103,7 @@ void ScalarConverter::printConversions(char c, int i, float f, double d)
 void ScalarConverter::convert(std::string other)
 {
     leteral_type type = get_type(other);
+    strToDouble(other);
     float s_float;
     int s_int;
     char s_char;
@@ -123,75 +111,45 @@ void ScalarConverter::convert(std::string other)
     switch (type)
     {
         case type_char :
-
-            try {
-                s_float = strToFloat(other);
-                s_int = static_cast<int>(s_float);
+                s_float = static_cast<float> (ScalarConverter::c_double);
+                s_int = static_cast<int>(ScalarConverter::c_double);
                 s_char = other[0];
-                s_double = static_cast<double>(s_float);
-            } catch (std::exception &e) {
-                std::cout << "Error: " << e.what() << std::endl;
-                return;
-            }
-            break;
+                s_double = ScalarConverter::c_double;
+                break;
         case type_int :
-            try {
-                s_float = strToFloat(other);
-                s_int = static_cast<int>(s_float);
-                s_char = static_cast<char>(s_float);
-                s_double = static_cast<double>(s_float);
-            } catch (std::exception &e) {
-                std::cout << "Error: " << e.what() << std::endl;
-                return;
-            }
-            break;
+                s_float = static_cast<float> (ScalarConverter::c_double);
+                s_int = static_cast<int>(ScalarConverter::c_double);
+                s_char = static_cast<char>(ScalarConverter::c_double);
+                s_double = ScalarConverter::c_double;
+                break;
         case type_float :
-            try {
-                s_float = strToFloat(other);
-                s_int = static_cast<int>(s_float);
-                s_char = static_cast<char>(s_float);
-                s_double = static_cast<double>(s_float);
-            } catch (std::exception &e) {
-                std::cout << "Error: " << e.what() << std::endl;
-                return;
-            }
-            break;
+                s_float = static_cast<float> (ScalarConverter::c_double);
+                s_int = static_cast<int>(ScalarConverter::c_double);
+                s_char = static_cast<char>(ScalarConverter::c_double);
+                s_double = ScalarConverter::c_double;
+                break;
         case type_double :
-            try {
-                s_float = strToFloat(other);
-                s_int = static_cast<int>(s_float);
-                s_char = static_cast<char>(s_float);
-                s_double = static_cast<double>(s_float);
-            } catch (std::exception &e) {
-                std::cout << "Error: " << e.what() << std::endl;
-                return;
-            }
-            break;
+                s_float = static_cast<float> (ScalarConverter::c_double);
+                s_int = static_cast<int>(ScalarConverter::c_double);
+                s_char = static_cast<char>(ScalarConverter::c_double);
+                s_double = ScalarConverter::c_double;
+                break;
         case type_pseudo :
-            try {
-                s_float = strToFloat(other);
-                s_int = static_cast<int>(s_float);
-                s_char = static_cast<char>(s_float);
-                s_double = static_cast<double>(s_float);
-            } catch (std::exception &e) {
-                std::cout << "Error: " << e.what() << std::endl;
-                return;
-            }
-            break;
+                s_float = static_cast<float> (ScalarConverter::c_double);
+                s_int = static_cast<int>(ScalarConverter::c_double);
+                s_char = static_cast<char>(ScalarConverter::c_double);
+                s_double = ScalarConverter::c_double;
+                break;
+
         case type_invalid :
-            try {
-                s_float = strToFloat(other);
-                s_int = static_cast<int>(s_float);
-                s_char = static_cast<char>(s_float);
-                s_double = static_cast<double>(s_float);
-            } catch (std::exception &e) {
-                std::cout << "Error: " << e.what() << std::endl;
-                return;
-            }
-            break;
+                s_float = static_cast<float> (ScalarConverter::c_double);
+                s_int = static_cast<int>(ScalarConverter::c_double);
+                s_char = static_cast<char>(ScalarConverter::c_double);
+                s_double = ScalarConverter::c_double;
+                break;
         default :
             std::cout << "Unknown or invalid literal" << std::endl;
-            return;
+            break;
     }
     printConversions(s_char, s_int, s_float, s_double);
 }

@@ -1,14 +1,8 @@
 #include "ScalarConverter.hpp"
 
 
-int main(int argc, char *argv[])
+int main(void)
 {
-    if (argc != 2)
-    {
-        std::cout << "Usage: ./convert <literal>" << std::endl;
-        return 1;
-    }
-    ScalarConverter::convert(argv[1]);
 
     std::cout << "\n=== Testing INT literals ===\n";
     ScalarConverter::convert("0");
