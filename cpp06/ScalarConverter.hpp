@@ -3,19 +3,29 @@
 
 #include <string>
 #include <iostream>
+#include <cctype>
+
+enum leteral_type
+{
+    type_char,
+    type_int,
+    type_float,
+    type_double,
+    type_pseudo,
+    type_invalid
+};
+
 
 class ScalarConverter
 {
     private:
-        char    s_char;
-        int    s_int;
-        float    s_float;
-        double    s_double;
-    public:
         ScalarConverter();
         ScalarConverter(const ScalarConverter& other);
         ScalarConverter& operator=(const ScalarConverter& other);
         ~ScalarConverter();
+        static leteral_type get_type(std::string& other);
+        static void printConversions(char c, int i, float f, double d);
+    public:
         static void convert(std::string &other);
 };
 
