@@ -154,10 +154,3 @@ void ScalarConverter::convert(std::string other)
     printConversions(s_char, s_int, s_float, s_double);
 }
 
-
-
-
-
-
-
-
