@@ -1,13 +1,13 @@
 #ifndef SERIALIZER_HPP
 #define SERIALIZER_HPP
 
-#include <cstdint>  // for uintptr_t
+#include <stdint.h>
 #include "Data.hpp"
 
 class Serializer
 {
 private:
-    Serializer();  // prevent instantiation
+    Serializer();
     Serializer(const Serializer &);
     Serializer &operator=(const Serializer &);
     ~Serializer();

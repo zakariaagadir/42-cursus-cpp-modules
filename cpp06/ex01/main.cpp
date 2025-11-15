@@ -17,9 +17,12 @@ int main()
     std::cout << "Deserialized Data pointer: " << ptr << std::endl;
 
     if (ptr == &data)
-        std::cout << "✅ Success: Pointers are equal" << std::endl;
+        std::cout << "Success: Pointers are equal" << std::endl;
     else
-        std::cout << "❌ Failure: Pointers differ" << std::endl;
+        std::cout << "Failure: Pointers differ" << std::endl;
 
     std::cout << "Deserialized content: " << ptr->name << ", id=" << ptr->id << ", value=" << ptr->value << std::endl;
+    return(0);
 }
+
+

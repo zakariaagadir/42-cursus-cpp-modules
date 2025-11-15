@@ -21,14 +21,13 @@ enum leteral_type
 class ScalarConverter
 {
     private:
-        static double c_double;
         ScalarConverter();
         ScalarConverter(const ScalarConverter& other);
         ScalarConverter& operator=(const ScalarConverter& other);
         ~ScalarConverter();
         static leteral_type get_type(std::string& other);
         static void printConversions(char c, int i, float f, double d);
-        static void strToDouble(const std::string &s);
+        static double strToDouble(const std::string &s);
 
     public:
         static void convert(std::string other);

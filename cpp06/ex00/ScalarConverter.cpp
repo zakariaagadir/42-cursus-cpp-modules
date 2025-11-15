@@ -1,26 +1,27 @@
 #include "ScalarConverter.hpp"
 
 
-// ScalarConverter::ScalarConverter()
-// {
+ScalarConverter::ScalarConverter()
+{
 
-// }
+}
 
-// ScalarConverter::ScalarConverter(const ScalarConverter& other)
-// {
+ScalarConverter::ScalarConverter(const ScalarConverter& other)
+{
+    (void)other;
 
-// }
+}
 
-// ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other)
-// {
+ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other)
+{
+    (void)other;
+    return(*this);
+}
 
-// }
+ScalarConverter::~ScalarConverter()
+{
 
-// ScalarConverter::~ScalarConverter()
-// {
-
-// }
-double ScalarConverter::c_double = 0.0;
+}
 
 float strToFloat(const std::string &s)
 {
@@ -30,10 +31,12 @@ float strToFloat(const std::string &s)
     return f;
 }
 
-void ScalarConverter::strToDouble(const std::string &s)
+double ScalarConverter::strToDouble(const std::string &s)
 {
+    double c_double;
     std::stringstream ss(s);
-    ss >> (ScalarConverter::c_double);
+    ss >> (c_double);
+    return(c_double);
 }
 
 int strToInt(const std::string &s)
@@ -103,7 +106,7 @@ void ScalarConverter::printConversions(char c, int i, float f, double d)
 void ScalarConverter::convert(std::string other)
 {
     leteral_type type = get_type(other);
-    strToDouble(other);
+    double c_double = strToDouble(other);
     float s_float;
     int s_int;
     char s_char;
@@ -111,41 +114,41 @@ void ScalarConverter::convert(std::string other)
     switch (type)
     {
         case type_char :
-                s_float = static_cast<float> (ScalarConverter::c_double);
-                s_int = static_cast<int>(ScalarConverter::c_double);
+                s_float = static_cast<float> (c_double);
+                s_int = static_cast<int>(c_double);
                 s_char = other[0];
-                s_double = ScalarConverter::c_double;
+                s_double = c_double;
                 break;
         case type_int :
-                s_float = static_cast<float> (ScalarConverter::c_double);
-                s_int = static_cast<int>(ScalarConverter::c_double);
-                s_char = static_cast<char>(ScalarConverter::c_double);
-                s_double = ScalarConverter::c_double;
+                s_float = static_cast<float> (c_double);
+                s_int = static_cast<int>(c_double);
+                s_char = static_cast<char>(c_double);
+                s_double = c_double;
                 break;
         case type_float :
-                s_float = static_cast<float> (ScalarConverter::c_double);
-                s_int = static_cast<int>(ScalarConverter::c_double);
-                s_char = static_cast<char>(ScalarConverter::c_double);
-                s_double = ScalarConverter::c_double;
+                s_float = static_cast<float> (c_double);
+                s_int = static_cast<int>(c_double);
+                s_char = static_cast<char>(c_double);
+                s_double = c_double;
                 break;
         case type_double :
-                s_float = static_cast<float> (ScalarConverter::c_double);
-                s_int = static_cast<int>(ScalarConverter::c_double);
-                s_char = static_cast<char>(ScalarConverter::c_double);
-                s_double = ScalarConverter::c_double;
+                s_float = static_cast<float> (c_double);
+                s_int = static_cast<int>(c_double);
+                s_char = static_cast<char>(c_double);
+                s_double = c_double;
                 break;
         case type_pseudo :
-                s_float = static_cast<float> (ScalarConverter::c_double);
-                s_int = static_cast<int>(ScalarConverter::c_double);
-                s_char = static_cast<char>(ScalarConverter::c_double);
-                s_double = ScalarConverter::c_double;
+                s_float = static_cast<float> (c_double);
+                s_int = static_cast<int>(c_double);
+                s_char = static_cast<char>(c_double);
+                s_double = c_double;
                 break;
 
         case type_invalid :
-                s_float = static_cast<float> (ScalarConverter::c_double);
-                s_int = static_cast<int>(ScalarConverter::c_double);
-                s_char = static_cast<char>(ScalarConverter::c_double);
-                s_double = ScalarConverter::c_double;
+                s_float = static_cast<float> (c_double);
+                s_int = static_cast<int>(c_double);
+                s_char = static_cast<char>(c_double);
+                s_double = c_double;
                 break;
         default :
             std::cout << "Unknown or invalid literal" << std::endl;

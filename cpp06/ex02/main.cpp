@@ -59,15 +59,20 @@ void identify(Base& p)
 int main()
 {
     srand(time(0));
-    Base* ptr = generate();
+    Base* ptr;
+    for(int i =0; i< 20; i++)
+    {
+        ptr = generate();
+    
+        std::cout << "identify(Base*): ";
+        identify(ptr);
+    
+        std::cout << "identify(Base&): ";
+        identify(*ptr);
 
-    std::cout << "identify(Base*): ";
-    identify(ptr);
+        delete ptr;
+    }
 
-    std::cout << "identify(Base&): ";
-    identify(*ptr);
-
-    delete ptr;
 }
 
 
