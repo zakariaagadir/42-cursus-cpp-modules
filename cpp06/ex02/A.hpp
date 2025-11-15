@@ -5,11 +5,11 @@
 
 class A :public Base
 {
-    public:
-        A();
-        A(const A& other);
-        A& operator=(const A& other);
-        ~A();
+    // public:
+    //     A();
+    //     A(const A& other);
+    //     A& operator=(const A& other);
+    //     ~A();
 };
 
 
