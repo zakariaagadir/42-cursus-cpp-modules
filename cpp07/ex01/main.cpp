@@ -1,28 +1,12 @@
 #include <iostream>
-#include "whatever.hpp"
+#include "iter.hpp"
 #include <string>
 
-template <class T>
-void iter(array<T>arr, int size, T (*f)())
-{
-    for(int i = 0; i < size)
-    {
-        arr[i] = f(arr[i]);
-    }
-}
 
 int main( void ) {
-    int a = 2;
-    int b = 3;
-    ::swap( a, b );
-    std::cout << "a = " << a << ", b = " << b << std::endl;
-    std::cout << "min( a, b ) = " << ::min( a, b ) << std::endl;
-    std::cout << "max( a, b ) = " << ::max( a, b ) << std::endl;
-    std::string c = "chaine1";
-    std::string d = "chaine2";
-    ::swap(c, d);
-    std::cout << "c = " << c << ", d = " << d << std::endl;
-    std::cout << "min( c, d ) = " << ::min( c, d ) << std::endl;
-    std::cout << "max( c, d ) = " << ::max( c, d ) << std::endl;
+    std::string ar[] = {"1","2","3","4","5","6","7","8","9"};
+
+    iter(ar,9,function<std::string>);
+    std::cout<<ar[5]<<std::endl;
     return 0;
 }

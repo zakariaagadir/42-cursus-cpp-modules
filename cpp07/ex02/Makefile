@@ -14,7 +14,7 @@ NAME = a.out
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp iter.cpp
+SRC = main.cpp Array.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
