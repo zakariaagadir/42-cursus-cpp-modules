@@ -18,10 +18,15 @@ void function(A i)
 template <class T, class U>
 void iter(T arr[], const int size, U f)
 {
-    for(int i = 0; i < size;i++)
+    if(arr && f)
     {
-       f(arr[i]);
+        for(int i = 0; i < size;i++)
+        {
+            f(arr[i]);
+        }
     }
+
+
 }
 
 std::string function2();

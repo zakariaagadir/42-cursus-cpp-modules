@@ -5,21 +5,20 @@
 
 int main( void ) {
 
-    Array<int> u (15);
+    Array<int> u(15);
     for(int i = 0; i < 15; i++)
     {
         u[i] = i;
     }
     for(int i = 0; i < 15; i++)
     {
-        std::cout<<u[i] << std::endl;
+        std::cout<< u[i] << std::endl;
     }
     try {
         u[25] = 9;
-
     } catch(std::exception &e)
     {
-        std::cout << e.what() << std::endl;
+        std::cout << "Exception was catched" << std::endl;
     }
     return 0;
 }
