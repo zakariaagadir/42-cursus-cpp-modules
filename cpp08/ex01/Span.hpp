@@ -2,6 +2,8 @@
 #define SPAN_HPP
 #include <vector>
 #include <iostream>
+#include <algorithm>
+#include <stdexcept>
 
 
 
