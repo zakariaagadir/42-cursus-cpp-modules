@@ -10,6 +10,7 @@ class Span{
     private:
         unsigned int max_;
         std::vector<int> data_;
+        Span();
     public:
         Span(unsigned int n);
         Span(const Span& other);
