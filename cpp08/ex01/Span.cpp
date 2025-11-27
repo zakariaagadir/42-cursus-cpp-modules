@@ -54,7 +54,7 @@ unsigned int Span::shortestSpan() const
         if (span < minSpan)
             minSpan = span;
     }
-    return minSpan;
+    return (minSpan);
 }
 
 unsigned int Span::longestSpan() const
