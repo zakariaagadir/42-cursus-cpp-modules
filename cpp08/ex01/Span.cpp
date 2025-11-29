@@ -1,5 +1,10 @@
 #include"Span.hpp"
 
+Span::Span()
+{
+    max_ = 0;
+}
+
 Span::Span(unsigned int n): max_(n)
 {
 }
