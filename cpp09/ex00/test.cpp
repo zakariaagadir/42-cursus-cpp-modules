@@ -3,25 +3,31 @@
 #include <sstream>
 #include <string>
 #include <map>
+#include <climits>
 #include <cstdlib>
 #include <iomanip>
 
-std::map<std::string, float> re_conatiner(std::string name)
+std::map<std::string, double> re_conatiner(std::string name)
 {
     std::ifstream infile;
-    int i =0;
-    std::map<std::string, float>test;
+    std::string s = "date,exchange_rate\n";
+    int i = 0;
+    std::map<std::string, double>test;
     infile.open(name.c_str());
     if(!infile.is_open())
     {
         return(test);
     }
     std::string line;
-    std::getline(infile, line);
     while(std::getline(infile, line))
     {
         if(i == 0)
         {
+            if(s.compare(line) == 0)
+            {
+                std::cerr<<"Error"<<std::endl<<s<<std::endl<<line;
+                return(test);
+            }
             i++;
             continue;
         }
@@ -34,13 +40,13 @@ std::map<std::string, float> re_conatiner(std::string name)
         }
         std::string str1;
         std::string str2;
-        float price;
+        double price;
         str1 = line.substr(0,index);
         str2 = line.substr(index + 1);
         price = atof(str2.c_str());
-        test.insert(std::pair<std::string, float>(str1, price));
+        test.insert(std::pair<std::string, double>(str1, price));
+        i++;
     }
-    i++;
     return(test);
 }
 
@@ -48,12 +54,12 @@ int main(int argc, char* argv[])
 {
     if(argc != 2)
     {
-        std::cerr<<"Error"<<std::endl;
+        std::cerr<<"Error: could not open file."<<std::endl;
         return(1);
     }
     std::string buffer;
     std::ifstream infile;
-    std::map<std::string, float>other_m;
+    std::map<std::string, double>other_m;
     infile.open(argv[1]);
     if(!infile.is_open())
     {
@@ -62,7 +68,11 @@ int main(int argc, char* argv[])
     }
 
     int i = 0;
-
+    std::map<std::string, double>t_map = re_conatiner("data.csv");
+    if(t_map.size() == 0)
+    {
+        return(1);
+    }
     while(getline(infile, buffer))
     {
         size_t index;
@@ -80,28 +90,27 @@ int main(int argc, char* argv[])
         }
         if(index == std::string::npos)
         {
-            other_m.insert(std::pair<std::string, float>("Error: bad input => 2001-42-42", price));
+            std::cout << "Error: bad input => " << buffer << std::endl;
             i++;
             continue;
         }
         std::string str1;
         std::string str2;
-        float price;
+        double price;
         str1 = buffer.substr(0,index);
         str2 = buffer.substr(index + 3);
         price = atof(str2.c_str());
-        other_m.insert(std::pair<std::string, float>(str1, price));
+        if((price < 0 ) || (price > 1000))
+        {
+            if(price < 0)
+                std::cout<<"Error: not a positive number."<<std::endl;
+            if(price > 1000)
+                std::cout<<"Error: too large a number."<<std::endl;
+            i++;
+            continue;
+        }
+        std::cout << str1 << " => "<< price <<" = "<<(price) * (t_map[str1])<<std::endl;
         i++;
-    }
-
-    std::map<std::string, float>t_map = re_conatiner("data.csv");
-    std::map<std::string, float>::iterator it = other_m.begin();
-    std::map<std::string, float>::iterator at = other_m.end();
-    while(it != at)
-    {
-        std::cout << it->first << " => "<<(it->second) * (t_map[it->first])<<std::endl;
-        std::cout<<other_m.size()<<std::endl;
-        it++;
     }
 
     return(0);
