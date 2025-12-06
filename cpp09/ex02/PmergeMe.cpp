@@ -1,4 +1,4 @@
-
+#include "PmergeMe.hpp"
 
 static size_t jacobsthal(size_t n)
 {
@@ -54,7 +54,7 @@ std::vector<size_t> generateJacobOrder(size_t size)
 }
 
 
-void mergeInsertSort(std::vector<int>& vect)
+void mergeInsertSortque(std::vector<int>& vect)
 {
     if (vect.size() <= 1)
         return;
@@ -88,7 +88,7 @@ void mergeInsertSort(std::vector<int>& vect)
         hasLeftover = true;
     }
 
-    mergeInsertSort(mainChain);
+    mergeInsertSortque(mainChain);
 
     std::vector<size_t> jacobOrder = generateJacobOrder(pendings.size());
     std::cout << "generateJacobOrder " << pendings.size() << " : ";
@@ -127,73 +127,4 @@ void mergeInsertSort(std::vector<int>& vect)
     }
 
     vect = mainChain;
-}
-
-void checkifsorted(std::vector<int> vect)
-{
-    for(size_t i = 0; i<(vect.size() -1); i++)
-    {
-        if(vect[i] > vect[i+1])
-        {
-            std::cout << "\033[31m[ERROR] Vector is NOT sorted ❌\033[0m\n";
-        }
-    }
-    std::cout << "\033[32m[OK] Vector is sorted ✔️\033[0m\n";
-}
-
-int main(int argc, char* argv[])
-{
-    std::vector<int> vect;
-    std::queue<int> que;
-    double buffer;
-    if(argc < 2)
-    {
-        std::cerr<<"ERROR"<<std::endl;
-        return 1;
-    }
-    for(int i = 1; i < argc; i++)
-    {
-        std::string s = argv[i];
-        for (size_t j = 0; j < s.size(); j++)
-        {
-            if(!isdigit(s[j]))
-            {
-                std::cerr<<"Error"<<std::endl;
-                return 1;
-            }
-        }
-        if(s.size() > 11)
-        {
-            std::cerr<<"Error"<<std::endl;
-            return 1;
-        }
-        buffer = std::atof(s.c_str());
-        if(buffer > INT_MAX || buffer < 0)
-        {
-            std::cerr<<"Error"<<std::endl;
-            return 1;
-        }
-        vect.push_back((int)buffer);
-        que.push((int)buffer);
-    }
-
-    std::cout << "Before: ";
-    for(size_t i = 0; i < vect.size(); i++)
-        std::cout << vect[i] << " ";
-    std::cout << std::endl;
-
-    clock_t start = clock();
-    mergeInsertSort(vect);
-    clock_t end = clock();
-
-    double elapsed = double(end - start) / CLOCKS_PER_SEC * 1e6;
-
-    std::cout << "After: ";
-    for(size_t i = 0; i < vect.size(); i++)
-        std::cout << vect[i] << " ";
-    std::cout << std::endl;
-    std::cout << "Time to process a range of 5 elements: " << std::fixed << std::setprecision(5)<< elapsed << " us" << std::endl;
-    checkifsorted(vect);
-    
-    return 0;
 }
