@@ -145,7 +145,7 @@ void checkifsorted(std::vector<int> vect)
 int main(int argc, char* argv[])
 {
     std::vector<int> vect;
-    std::queue<int> que;
+    std::deque<int> que;
     double buffer;
     if(argc < 2)
     {
@@ -175,7 +175,7 @@ int main(int argc, char* argv[])
             return 1;
         }
         vect.push_back((int)buffer);
-        que.push((int)buffer);
+        que.push_back((int)buffer);
     }
 
     std::cout << "Before: ";
@@ -186,6 +186,7 @@ int main(int argc, char* argv[])
     clock_t start = clock();
     mergeInsertSort(vect);
     clock_t end = clock();
+    mergeInsertSortDeque(que);
 
     double elapsed = double(end - start) / CLOCKS_PER_SEC * 1e6;
 
@@ -195,6 +196,7 @@ int main(int argc, char* argv[])
     std::cout << std::endl;
     std::cout << "Time to process a range of 5 elements: " << std::fixed << std::setprecision(5)<< elapsed << " us" << std::endl;
     checkifsorted(vect);
+    checkifsortedque(que);
     
     return 0;
 }

@@ -10,7 +10,19 @@ static size_t jacobsthalque(size_t n)
     return jacobsthalque(n - 1) + 2 * jacobsthalque(n - 2);
 }
 
-std::vector<size_t> generateJacobOrderque(size_t size)
+void checkifsortedque(std::deque<int>& que)
+{
+    for(size_t i = 0; i<(que.size() -1); i++)
+    {
+        if(que[i] > que[i+1])
+        {
+            std::cout << "\033[31m[ERROR] Vector is NOT sorted ❌\033[0m\n";
+        }
+    }
+    std::cout << "\033[32m[OK] Vector is sorted ✔️\033[0m\n";
+}
+
+static std::vector<size_t> generateJacobOrderque(size_t size)
 {
     std::vector<size_t> order;
     if (size == 0)

@@ -11,6 +11,8 @@
 #include <cctype>
 #include <iomanip>
 #include <queue>
-void mergeInsertSortque(std::vector<int>& vect);
+void mergeInsertSortDeque(std::deque<int>& deq);
+void checkifsortedque(std::deque<int>& que);
+
 
 #endif
