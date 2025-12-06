@@ -1,23 +1,25 @@
 #include "PmergeMe.hpp"
+#include <deque>
+#include <algorithm>
+#include <iostream>
 
-static size_t jacobsthal(size_t n)
+static size_t jacobsthalque(size_t n)
 {
     if (n == 0) return 0;
     if (n == 1) return 1;
-    return jacobsthal(n - 1) + 2 * jacobsthal(n - 2);
+    return jacobsthalque(n - 1) + 2 * jacobsthalque(n - 2);
 }
 
-std::vector<size_t> generateJacobOrder(size_t size)
+std::vector<size_t> generateJacobOrderque(size_t size)
 {
     std::vector<size_t> order;
-
     if (size == 0)
         return order;
 
     std::vector<size_t> J;
     for (size_t k = 1; ; k++)
     {
-        size_t jk = jacobsthal(k);
+        size_t jk = jacobsthalque(k);
         if (jk >= size)
             break;
         J.push_back(jk);
@@ -49,24 +51,22 @@ std::vector<size_t> generateJacobOrder(size_t size)
             order.push_back(j);
         } while (j-- > prev);
     }
-
     return order;
 }
 
-
-void mergeInsertSortque(std::vector<int>& vect)
+void mergeInsertSortDeque(std::deque<int>& deq)
 {
-    if (vect.size() <= 1)
+    if (deq.size() <= 1)
         return;
 
-    std::vector<int> mainChain;
-    std::vector<int> pendings;
-    int n = vect.size();
+    std::deque<int> mainChain;
+    std::deque<int> pendings;
+    size_t n = deq.size();
 
-    for (int i = 0; i + 1 < n; i += 2)
+    for (size_t i = 0; i + 1 < n; i += 2)
     {
-        int a = vect[i];
-        int b = vect[i + 1];
+        int a = deq[i];
+        int b = deq[i + 1];
 
         if (a <= b)
         {
@@ -80,21 +80,17 @@ void mergeInsertSortque(std::vector<int>& vect)
         }
     }
 
-    int leftover;
     bool hasLeftover = false;
+    int leftover = 0;
     if (n % 2 != 0)
     {
-        leftover = vect[n - 1];
         hasLeftover = true;
+        leftover = deq[n - 1];
     }
 
-    mergeInsertSortque(mainChain);
+    mergeInsertSortDeque(mainChain);
 
-    std::vector<size_t> jacobOrder = generateJacobOrder(pendings.size());
-    std::cout << "generateJacobOrder " << pendings.size() << " : ";
-    for(size_t i = 0; i < jacobOrder.size(); i++)
-        std::cout << jacobOrder[i] << " ";
-    std::cout << std::endl;
+    std::vector<size_t> jacobOrder = generateJacobOrderque(pendings.size());
     std::vector<bool> inserted(pendings.size(), false);
 
     for (size_t i = 0; i < jacobOrder.size(); i++)
@@ -102,7 +98,7 @@ void mergeInsertSortque(std::vector<int>& vect)
         size_t p = jacobOrder[i];
         if (p < pendings.size())
         {
-            std::vector<int>::iterator pos =
+            std::deque<int>::iterator pos =
                 std::lower_bound(mainChain.begin(), mainChain.end(), pendings[p]);
             mainChain.insert(pos, pendings[p]);
             inserted[p] = true;
@@ -113,7 +109,7 @@ void mergeInsertSortque(std::vector<int>& vect)
     {
         if (!inserted[i])
         {
-            std::vector<int>::iterator pos =
+            std::deque<int>::iterator pos =
                 std::lower_bound(mainChain.begin(), mainChain.end(), pendings[i]);
             mainChain.insert(pos, pendings[i]);
         }
@@ -121,10 +117,10 @@ void mergeInsertSortque(std::vector<int>& vect)
 
     if (hasLeftover)
     {
-        std::vector<int>::iterator pos =
+        std::deque<int>::iterator pos =
             std::lower_bound(mainChain.begin(), mainChain.end(), leftover);
         mainChain.insert(pos, leftover);
     }
 
-    vect = mainChain;
+    deq = mainChain;
 }
